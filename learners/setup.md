@@ -1,5 +1,5 @@
 ---
-title: "Session 3a Setup"
+title: "Setup"
 teaching: 5
 exercises: 0
 ---
@@ -18,7 +18,7 @@ Session 3a builds directly on the DEM and Sentinel-2 data you worked with in Ses
 
 ### Data
 
-- **Sentinel-2 image for the NDVI exercise** — download the ZIP file `S2B_MSIL1C_20260617T170849_N0512_R112_T14SPG_20260617T203803.SAFE.zip` from the workshop's participant resources Google Drive under [**Day 1_Session 3a: Basic raster functions**](https://drive.google.com/drive/folders/1eLEVONp7J7PeEPeFn1pC6Bm6YG9qIC-c). Save it to a new folder on your desktop called **Session_3a** locally.
+- **Sentinel-2 image for the NDVI exercise** — download the ZIP file `S2B_MSIL1C_20260617T170849_N0512_R112_T14SPG_20260617T203803.SAFE.zip` from the workshop's participant resources Google Drive under [**Day 1_Session 3a: Basic raster functions**](https://drive.google.com/drive/folders/1eLEVONp7J7PeEPeFn1pC6Bm6YG9qIC-c). Save it to a new folder on your desktop called **NDVI_Analysis** locally.
 - **SRTM DEM tile** — you should already have this from Session 2a. If not, download one from [USGS EarthExplorer](https://earthexplorer.usgs.gov/) following the instructions in the Session 2a episode.
 
 ### Background Reading
