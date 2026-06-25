@@ -246,6 +246,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="flood-analysis.html">2. Flood Analysis with False Color Composites and NDWI</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -584,6 +596,358 @@ across the entire image.</li>
 immediately interpretable.</li>
 <li>Comparing NDVI output against a satellite basemap helps validate
 your interpretation of the results.</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</section></section><section id="aio-flood-analysis"><p>Content from <a href="flood-analysis.html">Flood Analysis with False Color Composites and NDWI</a></p>
+<hr>
+<p>Last updated on 2026-06-25 |
+
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/flood-analysis.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What is a false color composite and what does it reveal?</li>
+<li>How do I create a false color composite from Sentinel-2 bands in
+QGIS?</li>
+<li>What is NDWI and how does it differ from NDVI?</li>
+<li>How can NDWI help identify flood extent more accurately than a false
+color composite alone?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Understand how false color composites remap spectral bands to RGB
+channels to highlight landscape features</li>
+<li>Build a virtual raster in QGIS to create a false color composite
+from Sentinel-2 bands</li>
+<li>Calculate NDWI using the Raster Calculator to delineate water from
+non-water</li>
+<li>Compare FCC, NDWI, and satellite basemap imagery to assess flood
+extent</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<hr class="half-width">
+<p>In the previous episode we used NDVI to identify vegetation. In this
+episode we shift focus to water — specifically, how to identify the
+extent of flooding using two complementary techniques: <strong>False
+Color Composites (FCC)</strong> and the <strong>Normalized Difference
+Water Index (NDWI)</strong>.</p>
+<div class="section level3">
+<h3 id="what-is-a-false-color-composite">What Is a False Color Composite?<a class="anchor" aria-label="anchor" href="#what-is-a-false-color-composite"></a>
+</h3>
+<p>A true color image maps the red, green, and blue bands to their
+corresponding RGB screen channels, producing an image that looks like a
+normal photograph. A <strong>false color composite</strong> swaps one of
+those bands — typically replacing blue with near-infrared — so that
+features invisible to the human eye become visible on screen.</p>
+<p>In a standard NRG false color composite (NIR → Red channel, Red →
+Green channel, Green → Blue channel):</p>
+<ul>
+<li>
+<strong>Vegetation</strong> appears <strong>red</strong> — because
+healthy vegetation strongly reflects near-infrared light, which is now
+displayed in the red channel</li>
+<li>
+<strong>Water</strong> appears <strong>dark blue to black</strong> —
+because water absorbs most near-infrared light</li>
+<li>
+<strong>Bare soil and infrastructure</strong> appear <strong>grey to
+white</strong>
+</li>
+</ul>
+<figure><img src="../assets/01_FCC_Example.png" title="False Color Composite Example — Source: Lamb 2001" alt="Diagram showing how true color and false color composites map spectral bands to RGB screen channels differently." class="figure mx-auto d-block"><div class="figcaption">Diagram showing how true color and false color
+composites map spectral bands to RGB screen channels differently.</div>
+</figure><figure><img src="../assets/02_Reflectance_Figure.png" title="Spectral Reflectance — Source: Khan et al. 2018" alt="Chart showing reflectance values across wavelengths for different surface types, illustrating why band substitution reveals hidden features." class="figure mx-auto d-block"><div class="figcaption">Chart showing reflectance values across
+wavelengths for different surface types, illustrating why band
+substitution reveals hidden features.</div>
+</figure><figure><img src="../assets/03_FCC_Screen_Example.png" title="False Color Composite — Source: European Space Agency" alt="A false color composite example from Sentinel-2 imagery." class="figure mx-auto d-block"><div class="figcaption">A false color composite example from Sentinel-2
+imagery.</div>
+</figure>
+</div>
+<div class="section level3">
+<h3 id="what-is-ndwi">What Is NDWI?<a class="anchor" aria-label="anchor" href="#what-is-ndwi"></a>
+</h3>
+<p>The <strong>Normalized Difference Water Index (NDWI)</strong>
+operates similarly to NDVI, but targets water rather than vegetation. It
+uses Sentinel-2 Bands 3 (Green) and 8 (Near-Infrared):</p>
+<p><strong>NDWI = (Green − NIR) / (Green + NIR)</strong></p>
+<p>Water absorbs near-infrared light but reflects green light, so water
+features produce <strong>positive</strong> NDWI values while non-water
+features produce <strong>negative</strong> values. This makes NDWI
+particularly useful for mapping flood extent, where muddy floodwater can
+appear ambiguous in both true and false color images.</p>
+<hr>
+</div>
+</section><section><h2 class="section-heading" id="step-1-set-up-your-project">Step 1: Set Up Your Project<a class="anchor" aria-label="anchor" href="#step-1-set-up-your-project"></a>
+</h2>
+<hr class="half-width">
+<ol style="list-style-type: decimal">
+<li>Create a folder on your desktop called
+<strong>Flood_Analysis</strong>.</li>
+<li>Open QGIS, close any pop-ups, and go to <strong>Project → Save
+As</strong>. Save the project as <code>Flood_Project</code> inside your
+Flood_Analysis folder.</li>
+</ol>
+<hr></section><section><h2 class="section-heading" id="step-2-download-and-extract-the-sentinel-2-image">Step 2: Download and Extract the Sentinel-2 Image<a class="anchor" aria-label="anchor" href="#step-2-download-and-extract-the-sentinel-2-image"></a>
+</h2>
+<hr class="half-width">
+<ol style="list-style-type: decimal">
+<li><p>Navigate to the workshop’s shared resources Google Drive. Under
+<strong>Day 1_Session 3a: Basic raster functions</strong>, download the
+ZIP file:
+<code>S2A_MSIL1C_20220831T055651_N0510_R091_T42RVR_20240719T213641.SAFE.zip</code></p></li>
+<li>
+<p>Save the ZIP file to your <strong>Flood_Analysis</strong> folder
+and extract it:</p>
+<ul>
+<li>
+<strong>Windows:</strong> Right-click → <strong>Extract
+All</strong>
+</li>
+<li>
+<strong>Mac:</strong> Double-click the ZIP file</li>
+</ul>
+</li>
+</ol>
+<p>This image captures the Sindh province of Pakistan during the
+devastating 2022 floods.</p>
+<hr></section><section><h2 class="section-heading" id="step-3-load-the-required-bands">Step 3: Load the Required Bands<a class="anchor" aria-label="anchor" href="#step-3-load-the-required-bands"></a>
+</h2>
+<hr class="half-width">
+<p>To create both the FCC and the NDWI, we need three bands:</p>
+<table class="table">
+<thead><tr>
+<th>Band</th>
+<th>Wavelength</th>
+<th>File name</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<strong>Band 3</strong> (Green)</td>
+<td>~560 nm</td>
+<td><code>T42RVR_20220831T055651_B03.jp2</code></td>
+</tr>
+<tr>
+<td>
+<strong>Band 4</strong> (Red)</td>
+<td>~665 nm</td>
+<td><code>T42RVR_20220831T055651_B04.jp2</code></td>
+</tr>
+<tr>
+<td>
+<strong>Band 8</strong> (NIR)</td>
+<td>~842 nm</td>
+<td><code>T42RVR_20220831T055651_B08.jp2</code></td>
+</tr>
+</tbody>
+</table>
+<p>In the <strong>Browser Panel</strong>, navigate to: <strong>Project
+Home → S2A_MSIL1C…SAFE → GRANULE → L1C_T42RVR_… → IMG_DATA</strong></p>
+<p>Drag <strong>B03</strong>, <strong>B04</strong>, and
+<strong>B08</strong> into the Layers Panel.</p>
+<figure><img src="../assets/04_Bands_Loaded.png" title="Bands Loaded" alt="Bands 3, 4, and 8 loaded into QGIS." class="figure mx-auto d-block"><div class="figcaption">Bands 3, 4, and 8 loaded into QGIS.</div>
+</figure><hr></section><section><h2 class="section-heading" id="step-4-create-the-false-color-composite">Step 4: Create the False Color Composite<a class="anchor" aria-label="anchor" href="#step-4-create-the-false-color-composite"></a>
+</h2>
+<hr class="half-width">
+<p>To combine three single-band rasters into one multi-band image, we
+use a <strong>virtual raster</strong>.</p>
+<ol style="list-style-type: decimal">
+<li>From the menu bar, select <strong>Raster → Miscellaneous → Build
+Virtual Raster</strong>.</li>
+<li>Click the three dots next to <strong>Input Layers</strong> and
+arrange the bands by dragging them into this order:
+<ul>
+<li>
+<strong>B08</strong> (NIR — will map to the red channel)</li>
+<li>
+<strong>B04</strong> (Red — will map to the green channel)</li>
+<li>
+<strong>B03</strong> (Green — will map to the blue channel)</li>
+</ul>
+</li>
+<li>Click <strong>Select All</strong>, then click the back arrow in the
+top-left corner of the pop-up.</li>
+</ol>
+<figure><img src="../assets/05_Virtual_Raster_Popup.png" title="Virtual Raster Setup" alt="The Build Virtual Raster dialog with bands arranged in NIR-Red-Green order." class="figure mx-auto d-block"><div class="figcaption">The Build Virtual Raster dialog with bands
+arranged in NIR-Red-Green order.</div>
+</figure><ol start="4" style="list-style-type: decimal">
+<li>Check the box <strong>Place each input file into a separate
+band</strong>.</li>
+<li>Under <strong>Virtual</strong>, click the three dots and select
+<strong>Save to File</strong>. Save it as <code>Flood_Output</code> in
+your Flood_Analysis folder.</li>
+<li>Click <strong>Run</strong>.</li>
+</ol>
+<p>Once complete, uncheck B03, B04, and B08 in the Layers Panel to see
+the false color composite.</p>
+<figure><img src="../assets/06_FCC.png" title="False Color Composite Result" alt="False color composite of the Sindh province during the 2022 floods." class="figure mx-auto d-block"><div class="figcaption">False color composite of the Sindh province
+during the 2022 floods.</div>
+</figure><p>The red areas are vegetation, dark blue and black areas are water,
+and grey-to-white areas are bare soil and infrastructure.</p>
+<hr></section><section><h2 class="section-heading" id="step-5-compare-against-a-satellite-basemap">Step 5: Compare Against a Satellite Basemap<a class="anchor" aria-label="anchor" href="#step-5-compare-against-a-satellite-basemap"></a>
+</h2>
+<hr class="half-width">
+<p>Add a basemap to compare the FCC against post-flood satellite
+imagery.</p>
+<ol style="list-style-type: decimal">
+<li>If you have not already installed <strong>QuickMapServices</strong>,
+go to <strong>Plugins → Manage and Install Plugins</strong>, search for
+<strong>QuickMapServices</strong>, and install it.</li>
+<li>Open the QMS panel (the globe-with-magnifying-glass icon in the
+toolbar), search for <code>imagery</code>, and add <strong>Esri
+Satellite (ArcGIS/World_Imagery)</strong>.</li>
+</ol>
+<p>Toggle the <code>Flood_Output</code> layer on and off to compare the
+flooded landscape to post-flood imagery.</p>
+<div id="exercise-1-interpret-the-false-color-composite" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-1-interpret-the-false-color-composite" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Interpret the False Color
+Composite</h3>
+<div class="callout-content">
+<ol style="list-style-type: decimal">
+<li>How accurate is the FCC at showing flood extent? Can you identify
+areas that were clearly underwater?</li>
+<li>What does the FCC struggle to distinguish? Look carefully at lighter
+blue areas — are they floodwater, or bare soil?</li>
+<li>What was the approximate extent of flooding in this region?</li>
+</ol>
+</div>
+</div>
+</div>
+<hr></section><section><h2 class="section-heading" id="step-6-calculate-ndwi">Step 6: Calculate NDWI<a class="anchor" aria-label="anchor" href="#step-6-calculate-ndwi"></a>
+</h2>
+<hr class="half-width">
+<p>The FCC provides a useful overview, but it has a limitation: muddy
+floodwater often appears as a lighter blue-grey that is difficult to
+distinguish from bare soil or infrastructure. NDWI solves this by
+isolating water based on its spectral signature rather than relying on
+visual color interpretation.</p>
+<ol style="list-style-type: decimal">
+<li>From the menu bar, select <strong>Raster → Raster
+Calculator</strong>.</li>
+<li>Enter the NDWI formula in the expression box (double-click band
+names to insert them):</li>
+</ol>
+<pre><code><span><span class="op">(</span> <span class="st">"T42RVR_20220831T055651_B03@1"</span> <span class="op">-</span> <span class="st">"T42RVR_20220831T055651_B08@1"</span> <span class="op">)</span> <span class="op">/</span> <span class="op">(</span> <span class="st">"T42RVR_20220831T055651_B03@1"</span> <span class="op">+</span> <span class="st">"T42RVR_20220831T055651_B08@1"</span> <span class="op">)</span></span></code></pre>
+<figure><img src="../assets/07_NDWI_Raster_Calculator.png" title="NDWI Raster Calculator" alt="The Raster Calculator with the NDWI expression entered." class="figure mx-auto d-block"><div class="figcaption">The Raster Calculator with the NDWI expression
+entered.</div>
+</figure><ol start="3" style="list-style-type: decimal">
+<li>Click the three-dot button next to <strong>Output layer</strong> and
+save it as <code>NDWI_Output</code> in your Flood_Analysis folder.</li>
+<li>Click <strong>OK</strong> to run the calculation.</li>
+</ol>
+<hr></section><section><h2 class="section-heading" id="step-7-apply-symbology-to-the-ndwi-output">Step 7: Apply Symbology to the NDWI Output<a class="anchor" aria-label="anchor" href="#step-7-apply-symbology-to-the-ndwi-output"></a>
+</h2>
+<hr class="half-width">
+<ol style="list-style-type: decimal">
+<li>Right-click the <code>NDWI_Output</code> layer →
+<strong>Properties</strong> → <strong>Symbology</strong> tab.</li>
+<li>Change the <strong>Render type</strong> to <strong>Singleband
+pseudocolor</strong>.</li>
+<li>Set <strong>Interpolation</strong> to
+<strong>Discrete</strong>.</li>
+<li>Set the <strong>Color ramp</strong> to <strong>Blues</strong>.</li>
+<li>Set the <strong>Mode</strong> to <strong>Equal Interval</strong> and
+reduce <strong>Classes</strong> to <strong>2</strong>.</li>
+<li>In the <strong>Value</strong> column, set the first value to
+<code>0</code> — this creates a clean split between water (positive
+values, blue) and non-water (negative values).</li>
+<li>Click <strong>Apply</strong>.</li>
+</ol>
+<figure><img src="../assets/08Initial_NDWI_Results.png" title="Initial NDWI Results" alt="NDWI results with two-class blue symbology applied." class="figure mx-auto d-block"><div class="figcaption">NDWI results with two-class blue symbology
+applied.</div>
+</figure><hr></section><section><h2 class="section-heading" id="step-8-overlay-ndwi-on-the-false-color-composite">Step 8: Overlay NDWI on the False Color Composite<a class="anchor" aria-label="anchor" href="#step-8-overlay-ndwi-on-the-false-color-composite"></a>
+</h2>
+<hr class="half-width">
+<p>To directly compare how much water the NDWI detected versus what the
+FCC shows, we can make the non-water class transparent so only detected
+water is visible over the FCC.</p>
+<ol style="list-style-type: decimal">
+<li>Reopen the <strong>Symbology</strong> tab for
+<code>NDWI_Output</code>.</li>
+<li>Right-click the color swatch for the first value (the non-water
+class) → <strong>Change Opacity</strong> → set to
+<strong>0</strong>.</li>
+<li>Click <strong>Apply</strong>.</li>
+<li>In the Layers Panel, make sure <code>Flood_Output</code> (the FCC)
+is turned on and positioned <strong>below</strong>
+<code>NDWI_Output</code>.</li>
+</ol>
+<figure><img src="../assets/09_NDWI_Results_Opacity0.png" title="NDWI Over FCC" alt="NDWI water detection overlaid on the false color composite, showing detected flood extent in blue over the FCC." class="figure mx-auto d-block"><div class="figcaption">NDWI water detection overlaid on the false color
+composite, showing detected flood extent in blue over the FCC.</div>
+</figure><p>The blue areas are pixels the NDWI identified as water. You can now
+see exactly where the NDWI detected flooding that may have been
+ambiguous in the FCC alone.</p>
+<div id="exercise-2-compare-all-three-layers" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-2-compare-all-three-layers" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Compare All Three Layers</h3>
+<div class="callout-content">
+<p>Toggle between the NDWI overlay, the FCC, and the Esri satellite
+basemap to answer the following:</p>
+<ol style="list-style-type: decimal">
+<li>Does the NDWI detect flood extent that the FCC missed? Where?</li>
+<li>Are there areas where the NDWI may have incorrectly classified
+non-water as water (false positives)?</li>
+<li>What are the strengths and limitations of each method? When would
+you use FCC versus NDWI?</li>
+</ol>
+</div>
+</div>
+</div>
+<hr>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>False color composites remap spectral bands to RGB channels, making
+vegetation (red), water (dark blue), and bare soil (grey/white) visually
+distinct.</li>
+<li>FCC is a quick visual tool but struggles with muddy or shallow
+floodwater that appears similar to bare soil.</li>
+<li>NDWI uses the ratio of green and near-infrared reflectance to
+isolate water features, providing a more reliable delineation of flood
+extent.</li>
+<li>Overlaying NDWI on an FCC combines the strengths of both methods —
+spectral precision from NDWI and spatial context from the FCC.</li>
 </ul>
 </div>
 </div>
