@@ -30,22 +30,30 @@ A **Normalized Difference Vegetation Index (NDVI)** is a widely used landscape m
 
 NDVI values range from −1 to +1. Values near +1 indicate dense, healthy vegetation; values near 0 indicate bare soil or sparse cover; and negative values typically indicate water, clouds, or snow.
 
-![Global NDVI composite showing vegetation density across the Earth's surface.](01_GlobalNdvi_tmo_200711_lrg.png "Global NDVI — Source: NASA Earth Observatory, produced by Reto Stöckli and Jesse Allen using MODIS Land Science Team data")
+![Global NDVI composite showing vegetation density across the Earth's surface.](01_Globalndvi_tmo_200711_lrg.png "Global NDVI — Source: NASA Earth Observatory, produced by Reto Stöckli and Jesse Allen using MODIS Land Science Team data")
 
 In this exercise we will use a Sentinel-2 multispectral image to calculate NDVI for a region in south-central Kansas.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### Sentinel 2 Atlas
+
+Take a moment to explore Sentinel-2 Land Cover [Living Atlas](https://livingatlas.arcgis.com/landcoverexplorer/#mapCenter=-86.23422%2C39.81847%2C12.56&mode=step&timeExtent=2017%2C2025&year=2025&showImageryLayer=true&renderingRule=0&month=9). Take a note of its features!
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ---
 
 ## Step 1: Set Up Your Project
 
-1. Create a folder on your desktop called **NDVI_Analysis** (if you have not already done so from the setup page).
+1. Create a folder on your desktop called **Session_3a** (if you have not already done so from the setup page).
 2. Open QGIS, close any pop-ups, and go to **Project → Save As**. Save the project as `NDVI_Project` inside your NDVI_Analysis folder.
 
 ---
 
 ## Step 2: Download and Extract the Sentinel-2 Image
 
-1. Navigate to the workshop's participant resources Google Drive. Under **Day 1_Session 3a: Basic raster functions**, download the ZIP file:
+1. Navigate to the workshop's shared resources Google Drive. Under **Day 1_Session 3a: Basic raster functions**, download the ZIP file:
    `S2B_MSIL1C_20260617T170849_N0512_R112_T14SPG_20260617T203803.SAFE.zip`
 
 2. Save the ZIP file to your **NDVI_Analysis** folder and extract it:
