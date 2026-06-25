@@ -15,21 +15,21 @@
 carpentry: 'incubator'
 
 # Alt-text description of the lesson.
-carpentry_description: 'Lesson Description'
+carpentry_description: 'Analysis and visualization techniques with satellite imagery'
 
 # Overall title for pages.
-title: 'Session 3A: NSF-GIS-Workshop' # FIXME
+title: 'Satellite Imagery Analysis' # FIXME
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: 2026-06-25 # FIXME
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries' # FIXME
+keywords: 'ndvi, flood, analysis, satellite' # FIXME
 
 # Life cycle stage of the lesson
 # refer to <https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html> for details
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'beta' # FIXME
+life_cycle: 'alpha' # FIXME
 
 # License of the lesson
 license: 'CC-BY 4.0'
