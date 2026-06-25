@@ -25,7 +25,7 @@ Session 3a builds directly on the DEM and Sentinel-2 data you worked with in Ses
 
 The following article provides useful context on the satellite imagery sources and elevation products we use in this session:
 
-##### Lindsay I, Mkrtchyan A. Free and Low-Cost Aerial Remote Sensing in Archaeology: An Overview of Data Sources and Recent Applications in the South Caucasus. Advances in Archaeological Practice. 2023;11(2):164-183. [https://doi.org/10.1017/aap.2023.3](https://www.cambridge.org/core/journals/advances-in-archaeological-practice/article/free-and-lowcost-aerial-remote-sensing-in-archaeology/3A08274856CA8DF67082948C2E063A81)
+###### Lindsay I, Mkrtchyan A. Free and Low-Cost Aerial Remote Sensing in Archaeology: An Overview of Data Sources and Recent Applications in the South Caucasus. Advances in Archaeological Practice. 2023;11(2):164-183. [https://doi.org/10.1017/aap.2023.3](https://www.cambridge.org/core/journals/advances-in-archaeological-practice/article/free-and-lowcost-aerial-remote-sensing-in-archaeology/3A08274856CA8DF67082948C2E063A81)
 
 Two figures from this article are especially relevant to our session:
 
