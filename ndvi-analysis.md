@@ -46,7 +46,7 @@ Take a moment to explore Sentinel-2 Land Cover [Living Atlas](https://livingatla
 
 ## Step 1: Set Up Your Project
 
-1. Create a folder on your desktop called **Session_3a** (if you have not already done so from the setup page).
+1. Create a folder on your desktop called **NDVI_Analysis** (if you have not already done so from the setup page).
 2. Open QGIS, close any pop-ups, and go to **Project → Save As**. Save the project as `NDVI_Project` inside your NDVI_Analysis folder.
 
 ---
@@ -92,7 +92,7 @@ Toggle each layer's visibility using the checkbox next to its name to see how th
 ( "T14SPG_20260617T170849_B08@1" - "T14SPG_20260617T170849_B04@1" ) / ( "T14SPG_20260617T170849_B08@1" + "T14SPG_20260617T170849_B04@1" )
 ```
 
-![The Raster Calculator with the NDVI expression entered.](04_Raster_Caclulator.png "Raster Calculator")
+![The Raster Calculator with the NDVI expression entered.](04_Raster_Caclulator .png "Raster Calculator")
 
 3. Click the three-dot button next to **Output layer** and save it as `NDVI_Output` in your NDVI_Analysis folder.
 4. Click **OK** to run the calculation.
