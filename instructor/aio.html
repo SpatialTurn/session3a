@@ -370,16 +370,21 @@ and negative values typically indicate water, clouds, or snow.</p>
 across the Earth’s surface.</div>
 </figure><p>In this exercise we will use a Sentinel-2 multispectral image to
 calculate NDVI for a region in south-central Kansas.</p>
-<div id="sentinel-2-atlas" class="callout">
+<div id="esri-sentinel-2-atlas" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <span class="callout-header">Callout</span>
-<div id="sentinel-2-atlas" class="callout-inner">
-<h3 class="callout-title">Sentinel 2 Atlas</h3>
+<div id="esri-sentinel-2-atlas" class="callout-inner">
+<h3 class="callout-title">ESRI Sentinel 2 Atlas</h3>
 <div class="callout-content">
 <p>Take a moment to explore Sentinel-2 Land Cover <a href="https://livingatlas.arcgis.com/landcoverexplorer/#mapCenter=-86.23422%2C39.81847%2C12.56&amp;mode=step&amp;timeExtent=2017%2C2025&amp;year=2025&amp;showImageryLayer=true&amp;renderingRule=0&amp;month=9" class="external-link">Living
 Atlas</a>. Take a note of its features!</p>
+<p>Esri’s Sentinel-2 platform in the ArcGIS Living Atlas is a free,
+web-based tool that provides dynamic access to global, multi-spectral
+satellite imagery. It features a rolling 14-month archive of the best,
+most cloud-free scenes, which update daily at a 10-meter spatial
+resolution.</p>
 </div>
 </div>
 </div>
@@ -590,6 +595,8 @@ differ from surrounding natural vegetation?</li>
 vegetation health and density.</li>
 <li>Sentinel-2 Bands 4 (Red) and 8 (NIR) are the inputs for NDVI
 calculation in QGIS.</li>
+<li>Refer to this Multispectral Band Combinations website <a href="https://gisgeography.com/sentinel-2-bands-combinations/" class="external-link">here</a>
+to learn what the function of each combination is!</li>
 <li>The Raster Calculator applies the NDVI formula on a per-pixel basis
 across the entire image.</li>
 <li>Thoughtful color symbology (red → yellow → green) makes NDVI results
