@@ -236,7 +236,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Using Markdown</a>
+        <a href="ndvi-analysis.html">1. NDVI Analysis with Sentinel-2 Imagery</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -299,11 +299,11 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>All in One View</h1>
         
-<section id="aio-introduction"><p>Content from <a href="introduction.html">Using Markdown</a></p>
+<section id="aio-ndvi-analysis"><p>Content from <a href="ndvi-analysis.html">NDVI Analysis with Sentinel-2 Imagery</a></p>
 <hr>
-<p>Last updated on 2025-07-11 |
+<p>Last updated on 2026-06-25 |
 
-        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/ndvi-analysis.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -315,8 +315,9 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do you write a lesson using Markdown and
-<a href="https://carpentries.github.io/sandpaper/" class="external-link">sandpaper</a>?</li>
+<li>What is NDVI and what does it measure?</li>
+<li>How do I calculate NDVI from Sentinel-2 bands in QGIS?</li>
+<li>How do I interpret and visualize NDVI results?</li>
 </ul>
 </div>
 </div>
@@ -326,9 +327,12 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Explain how to use markdown with The Carpentries Workbench</li>
-<li>Demonstrate how to include pieces of code, figures, and nested
-challenge blocks</li>
+<li>Understand what NDVI measures and why it is useful</li>
+<li>Load individual Sentinel-2 spectral bands into QGIS</li>
+<li>Use the Raster Calculator to compute NDVI from red and near-infrared
+bands</li>
+<li>Apply pseudocolor symbology to interpret vegetation health</li>
+<li>Compare NDVI results against satellite basemap imagery</li>
 </ul>
 </div>
 </div>
@@ -338,115 +342,214 @@ challenge blocks</li>
 <section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <hr class="half-width">
-<p>This is a lesson created via The Carpentries Workbench. It is written
-in <a href="https://pandoc.org/MANUAL.html" class="external-link">Pandoc-flavored Markdown</a>
-for static files and <a href="https://rmarkdown.rstudio.com/" class="external-link">R
-Markdown</a> for dynamic files that can render code into output. Please
-refer to the <a href="https://carpentries.github.io/sandpaper-docs/" class="external-link">Introduction to The
-Carpentries Workbench</a> for full documentation.</p>
-<p>What you need to know is that there are three sections required for a
-valid Carpentries lesson:</p>
+<p>A <strong>Normalized Difference Vegetation Index (NDVI)</strong> is a
+widely used landscape metric that quantifies the health and density of
+vegetation using satellite sensor data. It works by comparing the
+reflectance of red light (which vegetation absorbs) and near-infrared
+light (which healthy vegetation strongly reflects). The formula is:</p>
+<p><strong>NDVI = (NIR − Red) / (NIR + Red)</strong></p>
+<p>NDVI values range from −1 to +1. Values near +1 indicate dense,
+healthy vegetation; values near 0 indicate bare soil or sparse cover;
+and negative values typically indicate water, clouds, or snow.</p>
+<figure><img src="01_GlobalNdvi_tmo_200711_lrg.png" title="Global NDVI — Source: NASA Earth Observatory, produced by Reto Stöckli and Jesse Allen using MODIS Land Science Team data" alt="Global NDVI composite showing vegetation density across the Earth’s surface." class="figure mx-auto d-block"><div class="figcaption">Global NDVI composite showing vegetation density
+across the Earth’s surface.</div>
+</figure><p>In this exercise we will use a Sentinel-2 multispectral image to
+calculate NDVI for a region in south-central Kansas.</p>
+<hr></section><section><h2 class="section-heading" id="step-1-set-up-your-project">Step 1: Set Up Your Project<a class="anchor" aria-label="anchor" href="#step-1-set-up-your-project"></a>
+</h2>
+<hr class="half-width">
 <ol style="list-style-type: decimal">
-<li>
-<code>questions</code> are displayed at the beginning of the episode
-to prime the learner for the content.</li>
-<li>
-<code>objectives</code> are the learning objectives for an episode
-displayed with the questions.</li>
-<li>
-<code>keypoints</code> are displayed at the end of the episode to
-reinforce the objectives.</li>
+<li>Create a folder on your desktop called
+<strong>NDVI_Analysis</strong> (if you have not already done so from the
+setup page).</li>
+<li>Open QGIS, close any pop-ups, and go to <strong>Project → Save
+As</strong>. Save the project as <code>NDVI_Project</code> inside your
+NDVI_Analysis folder.</li>
 </ol>
-<div id="challenge-1-can-you-do-it" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-1-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Can you do it?</h3>
-<div class="callout-content">
-<p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">paste</span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"new"</span>, <span class="st">"lesson"</span>, <span class="st">"looks"</span>, <span class="st">"good"</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Output </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
-<div class="accordion-body">
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "This new lesson looks good"</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout-inner">
-<h3 class="callout-title">Challenge 2: how do you nest solutions within
-challenge blocks?</h3>
-<div class="callout-content">
-
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<p>You can add a line with at least three colons and a
-<code>solution</code> tag.</p>
-</div>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
+<hr></section><section><h2 class="section-heading" id="step-2-download-and-extract-the-sentinel-2-image">Step 2: Download and Extract the Sentinel-2 Image<a class="anchor" aria-label="anchor" href="#step-2-download-and-extract-the-sentinel-2-image"></a>
 </h2>
 <hr class="half-width">
-<p>You can use standard markdown for static figures with the following
-syntax:</p>
-<p><code>![optional caption that appears below the figure](figure url){alt='alt text for accessibility purposes'}</code></p>
-<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><div id="callout1" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div class="callout-inner">
-<div class="callout-content">
-<p>Callout sections can highlight information.</p>
-<p>They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present “asides”: content that is
-not central to the narrative of the lesson, e.g. by providing the answer
-to a commonly-asked question.</p>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="math">Math<a class="anchor" aria-label="anchor" href="#math"></a>
+<ol style="list-style-type: decimal">
+<li><p>Navigate to the workshop’s participant resources Google Drive.
+Under <strong>Day 1_Session 3a: Basic raster functions</strong>,
+download the ZIP file:
+<code>S2B_MSIL1C_20260617T170849_N0512_R112_T14SPG_20260617T203803.SAFE.zip</code></p></li>
+<li>
+<p>Save the ZIP file to your <strong>NDVI_Analysis</strong> folder
+and extract it:</p>
+<ul>
+<li>
+<strong>Windows:</strong> Right-click → <strong>Extract
+All</strong>
+</li>
+<li>
+<strong>Mac:</strong> Double-click the ZIP file</li>
+</ul>
+</li>
+</ol>
+<figure><img src="02_NDVI_Analysis_Folder.png" title="NDVI Analysis Folder" alt="The NDVI_Analysis folder with the extracted Sentinel-2 data." class="figure mx-auto d-block"><div class="figcaption">The NDVI_Analysis folder with the extracted
+Sentinel-2 data.</div>
+</figure><hr></section><section><h2 class="section-heading" id="step-3-load-the-red-and-nir-bands">Step 3: Load the Red and NIR Bands<a class="anchor" aria-label="anchor" href="#step-3-load-the-red-and-nir-bands"></a>
 </h2>
 <hr class="half-width">
-<p>One of our episodes contains <span class="math inline">\(\LaTeX\)</span> equations when describing how to
-create dynamic reports with {knitr}, so we now use mathjax to describe
-this:</p>
-<p><code>$\alpha = \dfrac{1}{(1 - \beta)^2}$</code> becomes: <span class="math inline">\(\alpha = \dfrac{1}{(1 - \beta)^2}\)</span></p>
-<p>Cool, right?</p>
+<p>Sentinel-2 images contain 13 spectral bands stored as individual
+files. For NDVI we only need two:</p>
+<ul>
+<li>
+<strong>Band 4</strong> (Red) —
+<code>T14SPG_20260617T170849_B04.jp2</code>
+</li>
+<li>
+<strong>Band 8</strong> (Near-Infrared) —
+<code>T14SPG_20260617T170849_B08.jp2</code>
+</li>
+</ul>
+<p>To find them:</p>
+<ol style="list-style-type: decimal">
+<li>In the <strong>Browser Panel</strong> on the left side of QGIS,
+navigate to: <strong>Project Home → S2B_MSIL1C_…SAFE → GRANULE →
+L1C_T14SPG_… → IMG_DATA</strong>
+</li>
+<li>Drag <strong>B04</strong> and <strong>B08</strong> into the
+<strong>Layers Panel</strong>.</li>
+</ol>
+<figure><img src="03_Bands4_and_8.png" title="Bands 4 and 8" alt="Bands 4 and 8 loaded into QGIS." class="figure mx-auto d-block"><div class="figcaption">Bands 4 and 8 loaded into QGIS.</div>
+</figure><p>Toggle each layer’s visibility using the checkbox next to its name to
+see how the two bands differ — Band 4 captures visible red light, while
+Band 8 captures near-infrared reflectance that is invisible to the human
+eye but strongly reflected by healthy vegetation.</p>
+<hr></section><section><h2 class="section-heading" id="step-4-calculate-ndvi-with-the-raster-calculator">Step 4: Calculate NDVI with the Raster Calculator<a class="anchor" aria-label="anchor" href="#step-4-calculate-ndvi-with-the-raster-calculator"></a>
+</h2>
+<hr class="half-width">
+<ol style="list-style-type: decimal">
+<li>From the menu bar, select <strong>Raster → Raster
+Calculator</strong>.</li>
+<li>In the expression box, enter the NDVI formula. You can double-click
+the band names in the <strong>Raster Bands</strong> list to insert
+them:</li>
+</ol>
+<pre><code><span><span class="op">(</span> <span class="st">"T14SPG_20260617T170849_B08@1"</span> <span class="op">-</span> <span class="st">"T14SPG_20260617T170849_B04@1"</span> <span class="op">)</span> <span class="op">/</span> <span class="op">(</span> <span class="st">"T14SPG_20260617T170849_B08@1"</span> <span class="op">+</span> <span class="st">"T14SPG_20260617T170849_B04@1"</span> <span class="op">)</span></span></code></pre>
+<figure><img src="04_Raster_Caclulator.png" title="Raster Calculator" alt="The Raster Calculator with the NDVI expression entered." class="figure mx-auto d-block"><div class="figcaption">The Raster Calculator with the NDVI expression
+entered.</div>
+</figure><ol start="3" style="list-style-type: decimal">
+<li>Click the three-dot button next to <strong>Output layer</strong> and
+save it as <code>NDVI_Output</code> in your NDVI_Analysis folder.</li>
+<li>Click <strong>OK</strong> to run the calculation.</li>
+</ol>
+<p>Once the output loads, you can right-click Bands 4 and 8 in the
+Layers Panel and select <strong>Remove Layer</strong> — they are no
+longer needed.</p>
+<hr></section><section><h2 class="section-heading" id="step-5-apply-color-symbology">Step 5: Apply Color Symbology<a class="anchor" aria-label="anchor" href="#step-5-apply-color-symbology"></a>
+</h2>
+<hr class="half-width">
+<p>The raw NDVI output appears in grayscale. To make vegetation patterns
+visible, we need to apply a color ramp.</p>
+<ol style="list-style-type: decimal">
+<li>Right-click the <code>NDVI_Output</code> layer →
+<strong>Properties</strong> → <strong>Symbology</strong> tab.</li>
+<li>Change the <strong>Render type</strong> to <strong>Singleband
+pseudocolor</strong>.</li>
+<li>Set <strong>Interpolation</strong> to
+<strong>Discrete</strong>.</li>
+<li>Set the <strong>Color ramp</strong> to <strong>Greens</strong>.</li>
+<li>Under the table, set the <strong>Mode</strong> to <strong>Equal
+Interval</strong> and reduce the <strong>Classes</strong> to
+<strong>3</strong>.</li>
+<li>In the <strong>Value</strong> column, enter the following from
+bottom to top: <code>0.66</code>, <code>0.33</code>,
+<code>0.05</code>.</li>
+<li>Click <strong>Apply</strong>.</li>
+</ol>
+<figure><img src="05_ColorTable.png" title="NDVI Color Table" alt="The symbology popup with three NDVI classes configured." class="figure mx-auto d-block"><div class="figcaption">The symbology popup with three NDVI classes
+configured.</div>
+</figure><hr></section><section><h2 class="section-heading" id="step-6-refine-the-color-scheme">Step 6: Refine the Color Scheme<a class="anchor" aria-label="anchor" href="#step-6-refine-the-color-scheme"></a>
+</h2>
+<hr class="half-width">
+<p>The green-only ramp shows the classification, but we can make
+interpretation more intuitive by matching colors to vegetation health
+levels.</p>
+<figure><img src="06_NDVI_Reference.png" title="NDVI Reference Scale — Source: Geopard.tech" alt="NDVI reference scale showing the relationship between NDVI values and vegetation health." class="figure mx-auto d-block"><div class="figcaption">NDVI reference scale showing the relationship
+between NDVI values and vegetation health.</div>
+</figure><p>Using the reference scale above as a guide:</p>
+<ol style="list-style-type: decimal">
+<li>Reopen the <strong>Symbology</strong> tab.</li>
+<li>Double-click each color swatch to change it:
+<ul>
+<li>
+<strong>Bottom class (0.05–0.33)</strong> → <strong>Red</strong> —
+inanimate objects, bare soil, or dead vegetation</li>
+<li>
+<strong>Middle class (0.33–0.66)</strong> → <strong>Yellow</strong>
+— unhealthy or sparse vegetation</li>
+<li>
+<strong>Top class (0.66–1.0)</strong> → <strong>Green</strong> —
+dense, healthy vegetation</li>
+</ul>
+</li>
+<li>Click <strong>Apply</strong>, then <strong>OK</strong>.</li>
+</ol>
+<figure><img src="07_Final_NDVI_Result.png" title="Final NDVI Result" alt="The NDVI result with red-yellow-green symbology applied." class="figure mx-auto d-block"><div class="figcaption">The NDVI result with red-yellow-green symbology
+applied.</div>
+</figure><div id="exercise-1-interpret-the-ndvi-map" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-1-interpret-the-ndvi-map" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Interpret the NDVI Map</h3>
+<div class="callout-content">
+<p>Look at your NDVI output and try to answer the following:</p>
+<ol style="list-style-type: decimal">
+<li>Can you identify Wichita (the largest city in the region)? What NDVI
+values dominate urban areas?</li>
+<li>Can you locate any lakes or rivers? What values do they show?</li>
+<li>Where is the densest vegetation — is it farmland, forest, or
+something else?</li>
+</ol>
+<p>Write down your initial observations. We will check them against
+satellite imagery in the next step.</p>
+</div>
+</div>
+</div>
+<hr></section><section><h2 class="section-heading" id="step-7-add-a-basemap-for-comparison">Step 7: Add a Basemap for Comparison<a class="anchor" aria-label="anchor" href="#step-7-add-a-basemap-for-comparison"></a>
+</h2>
+<hr class="half-width">
+<p>To verify your interpretations, add a satellite basemap underneath
+the NDVI layer.</p>
+<ol style="list-style-type: decimal">
+<li>From the menu bar, select <strong>Plugins → Manage and Install
+Plugins</strong>.</li>
+<li>Search for <strong>QuickMapServices</strong> and click
+<strong>Install Plugin</strong> (if not already installed from Session
+1a).</li>
+<li>After installation, a <strong>QMS</strong> panel should appear on
+the right side of your screen. Search for <code>imagery</code> and add
+<strong>Esri Satellite (ArcGIS/World_Imagery)</strong> to your map.</li>
+</ol>
+<p>Now toggle the NDVI layer on and off in the Layers Panel to compare
+your NDVI classification against the actual satellite imagery.</p>
+<figure><img src="08_NDVI_with_Basemap.png" title="NDVI with Basemap" alt="The NDVI layer overlaid on satellite basemap imagery for comparison." class="figure mx-auto d-block"><div class="figcaption">The NDVI layer overlaid on satellite basemap
+imagery for comparison.</div>
+</figure><div id="exercise-2-verify-your-observations" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="exercise-2-verify-your-observations" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Verify Your Observations</h3>
+<div class="callout-content">
+<p>Compare your NDVI results against the satellite basemap.</p>
+<ol style="list-style-type: decimal">
+<li>Were your initial observations from Exercise 1 correct?</li>
+<li>Did anything surprise you — areas you expected to be vegetated that
+were not, or vice versa?</li>
+<li>Can you identify any agricultural fields? How do their NDVI values
+differ from surrounding natural vegetation?</li>
+</ol>
+</div>
+</div>
+</div>
+<hr>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -455,14 +558,16 @@ this:</p>
 <div class="callout-inner">
 <div class="callout-content">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>NDVI uses the ratio of near-infrared and red reflectance to quantify
+vegetation health and density.</li>
+<li>Sentinel-2 Bands 4 (Red) and 8 (NIR) are the inputs for NDVI
+calculation in QGIS.</li>
+<li>The Raster Calculator applies the NDVI formula on a per-pixel basis
+across the entire image.</li>
+<li>Thoughtful color symbology (red → yellow → green) makes NDVI results
+immediately interpretable.</li>
+<li>Comparing NDVI output against a satellite basemap helps validate
+your interpretation of the results.</li>
 </ul>
 </div>
 </div>
@@ -520,9 +625,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/aio.html",
-  "dateCreated": "2026-06-15",
-  "dateModified": "2026-06-23",
-  "datePublished": "2026-06-23"
+  "dateCreated": "2026-06-25",
+  "dateModified": "2026-06-25",
+  "datePublished": "2026-06-25"
 }
 
   </script><script>

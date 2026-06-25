@@ -197,8 +197,7 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#data-sets">Data Sets</a></li>
-<li><a href="#software-setup">Software Setup</a></li>
+        <ul><li><a href="#what-you-need-for-this-session">What You Need for This Session</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -208,7 +207,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Using Markdown</a>
+        <a href="ndvi-analysis.html">1. NDVI Analysis with Sentinel-2 Imagery</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -256,11 +255,11 @@
         <!-- START: inst/pkgdown/templates/content-syllabus.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link float-end" href="introduction.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="ndvi-analysis.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="introduction.html" rel="next">Next: Using Markdown... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="ndvi-analysis.html" rel="next">Next: NDVI Analysis with... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Setup</h1>
       
@@ -273,87 +272,79 @@ any links that you are not going to use.
  -->
 
 
-      <section id="setup"><p>FIXME: Setup instructions live in this document. Please specify the
-tools and the data sets the Learner needs to have installed.</p>
-<section><h2 class="section-heading" id="data-sets">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
-<hr class="half-width"><!--
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
---><p>Download the <a href="https://example.com/FIXME" class="external-link">data zip file</a>
-and unzip it to your Desktop</p>
-</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
-<hr class="half-width"><div id="details" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="details" class="callout-inner">
-<h3 class="callout-title">Details</h3>
-<div class="callout-content">
-<p>Setup for different systems can be presented in dropdown menus via a
-<code>spoiler</code> tag. They will join to this discussion block, so
-you can give a general overview of the software used in this lesson here
-and fill out the individual operating systems (and potentially add more,
-e.g. online setup) in the solutions blocks.</p>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
-  <h3 class="accordion-header" id="headingSpoiler1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Windows
-  </h3>
-</button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
-<div class="accordion-body">
-<p>Use PuTTY</p>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
-  <h3 class="accordion-header" id="headingSpoiler2">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  MacOS
-  </h3>
-</button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
-<div class="accordion-body">
-<p>Use Terminal.app</p>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler3" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
-  <h3 class="accordion-header" id="headingSpoiler3">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Linux
-  </h3>
-</button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
-<div class="accordion-body">
-<p>Use Terminal</p>
-</div>
-</div>
-</div>
-</div>
-<!--
+      <section id="setup"><section><h2 class="section-heading" id="what-you-need-for-this-session">What You Need for This Session<a class="anchor" aria-label="anchor" href="#what-you-need-for-this-session"></a></h2>
+<hr class="half-width"><p>Session 3a builds directly on the DEM and Sentinel-2 data you worked
+with in Session 2a. Make sure you have the following ready before the
+session begins.</p>
+<div class="section level3">
+<h3 id="software">Software<a class="anchor" aria-label="anchor" href="#software"></a></h3>
+<ul><li>
+<strong>QGIS Desktop (LTR)</strong> — should already be installed
+from Session 1a/2a.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="accounts">Accounts<a class="anchor" aria-label="anchor" href="#accounts"></a></h3>
+<ul><li>
+<strong>Copernicus Data Space</strong> — for accessing Sentinel-2
+imagery. If you have not yet registered, create a free account at <a href="https://dataspace.copernicus.eu" class="external-link">https://dataspace.copernicus.eu</a>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h3>
+<ul><li>
+<strong>Sentinel-2 image for the NDVI exercise</strong> — download
+the ZIP file
+<code>S2B_MSIL1C_20260617T170849_N0512_R112_T14SPG_20260617T203803.SAFE.zip</code>
+from the workshop’s participant resources Google Drive under <a href="https://drive.google.com/drive/folders/1eLEVONp7J7PeEPeFn1pC6Bm6YG9qIC-c" class="external-link"><strong>Day
+1_Session 3a: Basic raster functions</strong></a>. Save it to a new
+folder on your desktop called <strong>Session_3a</strong> locally.</li>
+<li>
+<strong>SRTM DEM tile</strong> — you should already have this from
+Session 2a. If not, download one from <a href="https://earthexplorer.usgs.gov/" class="external-link">USGS EarthExplorer</a> following
+the instructions in the Session 2a episode.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="background-reading">Background Reading<a class="anchor" aria-label="anchor" href="#background-reading"></a></h3>
+<p>The following article provides useful context on the satellite
+imagery sources and elevation products we use in this session:</p>
+<blockquote>
+<p>Lindsay I, Mkrtchyan A. Free and Low-Cost Aerial Remote Sensing in
+Archaeology: An Overview of Data Sources and Recent Applications in the
+South Caucasus. Advances in Archaeological Practice. 2023;11(2):164-183.
+<a href="https://www.cambridge.org/core/journals/advances-in-archaeological-practice/article/free-and-lowcost-aerial-remote-sensing-in-archaeology/3A08274856CA8DF67082948C2E063A81" class="external-link">https://doi.org/10.1017/aap.2023.3</a></p>
+</blockquote>
+<p>Two figures from this article are especially relevant to our
+session:</p>
+<figure><img src="table1.png" title="Table 1 from Mkrtchyan 2023 — Satellite Imagery Sources" alt="Free and low-cost satellite imagery sources commonly used in archaeological and heritage applications." class="figure mx-auto d-block"><div class="figcaption">Free and low-cost satellite imagery sources
+commonly used in archaeological and heritage applications.</div>
+</figure><figure><img src="figure5.png" title="Figure 5 from Mkrtchyan 2023 — DEM-Derived Products" alt="SRTM digital elevation model of the Mount Aragats region of Armenia and examples of common elevation products derived from the model: (a) raw SRTM DEM data; (b) hillshade; (c) slope calculated as percent, with slopes greater than 15% in red; (d) contour lines." class="figure mx-auto d-block"><div class="figcaption">SRTM digital elevation model of the Mount
+Aragats region of Armenia and examples of common elevation products
+derived from the model: (a) raw SRTM DEM data; (b) hillshade; (c) slope
+calculated as percent, with slopes greater than 15% in red; (d) contour
+lines.</div>
+</figure><p>These examples illustrate the range of analysis you can perform with
+freely available satellite and elevation data — the same tools and data
+sources we use in this workshop.</p>
+<hr></div>
+<div class="section level3">
+<h3 id="checklist">Checklist<a class="anchor" aria-label="anchor" href="#checklist"></a></h3>
+<ul class="task-list"><li><label><input type="checkbox">QGIS installed and opens
+successfully</label></li>
+<li><label><input type="checkbox">Copernicus Data Space account
+created and verified</label></li>
+<li><label><input type="checkbox">Sentinel-2 ZIP file downloaded and
+saved to your NDVI_Analysis folder</label></li>
+<li><label><input type="checkbox">SRTM DEM tile available from Session
+2a</label></li>
+</ul><!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- -->
+ --></div>
 </section></section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link float-end" href="introduction.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="ndvi-analysis.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="introduction.html" rel="next">Next: Using Markdown... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="ndvi-analysis.html" rel="next">Next: NDVI Analysis with... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div>
 <!-- END  : inst/pkgdown/templates/content-syllabus.html -->
@@ -398,9 +389,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/index.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/index.html",
-  "dateCreated": "2026-06-15",
-  "dateModified": "2026-06-23",
-  "datePublished": "2026-06-23"
+  "dateCreated": "2026-06-25",
+  "dateModified": "2026-06-25",
+  "datePublished": "2026-06-25"
 }
 
   </script><script>
