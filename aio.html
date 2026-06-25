@@ -351,17 +351,29 @@ light (which healthy vegetation strongly reflects). The formula is:</p>
 <p>NDVI values range from −1 to +1. Values near +1 indicate dense,
 healthy vegetation; values near 0 indicate bare soil or sparse cover;
 and negative values typically indicate water, clouds, or snow.</p>
-<figure><img src="01_GlobalNdvi_tmo_200711_lrg.png" title="Global NDVI — Source: NASA Earth Observatory, produced by Reto Stöckli and Jesse Allen using MODIS Land Science Team data" alt="Global NDVI composite showing vegetation density across the Earth’s surface." class="figure mx-auto d-block"><div class="figcaption">Global NDVI composite showing vegetation density
+<figure><img src="01_Globalndvi_tmo_200711_lrg.png" title="Global NDVI — Source: NASA Earth Observatory, produced by Reto Stöckli and Jesse Allen using MODIS Land Science Team data" alt="Global NDVI composite showing vegetation density across the Earth’s surface." class="figure mx-auto d-block"><div class="figcaption">Global NDVI composite showing vegetation density
 across the Earth’s surface.</div>
 </figure><p>In this exercise we will use a Sentinel-2 multispectral image to
 calculate NDVI for a region in south-central Kansas.</p>
+<div id="sentinel-2-atlas" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="sentinel-2-atlas" class="callout-inner">
+<h3 class="callout-title">Sentinel 2 Atlas</h3>
+<div class="callout-content">
+<p>Take a moment to explore Sentinel-2 Land Cover <a href="https://livingatlas.arcgis.com/landcoverexplorer/#mapCenter=-86.23422%2C39.81847%2C12.56&amp;mode=step&amp;timeExtent=2017%2C2025&amp;year=2025&amp;showImageryLayer=true&amp;renderingRule=0&amp;month=9" class="external-link">Living
+Atlas</a>. Take a note of its features!</p>
+</div>
+</div>
+</div>
 <hr></section><section><h2 class="section-heading" id="step-1-set-up-your-project">Step 1: Set Up Your Project<a class="anchor" aria-label="anchor" href="#step-1-set-up-your-project"></a>
 </h2>
 <hr class="half-width">
 <ol style="list-style-type: decimal">
-<li>Create a folder on your desktop called
-<strong>NDVI_Analysis</strong> (if you have not already done so from the
-setup page).</li>
+<li>Create a folder on your desktop called <strong>Session_3a</strong>
+(if you have not already done so from the setup page).</li>
 <li>Open QGIS, close any pop-ups, and go to <strong>Project → Save
 As</strong>. Save the project as <code>NDVI_Project</code> inside your
 NDVI_Analysis folder.</li>
@@ -370,9 +382,9 @@ NDVI_Analysis folder.</li>
 </h2>
 <hr class="half-width">
 <ol style="list-style-type: decimal">
-<li><p>Navigate to the workshop’s participant resources Google Drive.
-Under <strong>Day 1_Session 3a: Basic raster functions</strong>,
-download the ZIP file:
+<li><p>Navigate to the workshop’s shared resources Google Drive. Under
+<strong>Day 1_Session 3a: Basic raster functions</strong>, download the
+ZIP file:
 <code>S2B_MSIL1C_20260617T170849_N0512_R112_T14SPG_20260617T203803.SAFE.zip</code></p></li>
 <li>
 <p>Save the ZIP file to your <strong>NDVI_Analysis</strong> folder
