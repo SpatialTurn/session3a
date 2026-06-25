@@ -36,11 +36,11 @@ In a standard NRG false color composite (NIR → Red channel, Red → Green chan
 - **Water** appears **dark blue to black** — because water absorbs most near-infrared light
 - **Bare soil and infrastructure** appear **grey to white**
 
-![Diagram showing how true color and false color composites map spectral bands to RGB screen channels differently.](assets/01_FCC_Example.png "False Color Composite Example — Source: Lamb 2001")
+![Diagram showing how true color and false color composites map spectral bands to RGB screen channels differently.](01_FCC_Example.png "False Color Composite Example — Source: Lamb 2001")
 
-![Chart showing reflectance values across wavelengths for different surface types, illustrating why band substitution reveals hidden features.](assets/02_Reflectance_Figure.png "Spectral Reflectance — Source: Khan et al. 2018")
+![Chart showing reflectance values across wavelengths for different surface types, illustrating why band substitution reveals hidden features.](02_Reflectance_Figure.png "Spectral Reflectance — Source: Khan et al. 2018")
 
-![A false color composite example from Sentinel-2 imagery.](assets/03_FCC_Screen_Example.png "False Color Composite — Source: European Space Agency")
+![A false color composite example from Sentinel-2 imagery.](03_FCC_Screen_Example.png "False Color Composite — Source: European Space Agency")
 
 ### What Is NDWI?
 
@@ -61,7 +61,7 @@ Water absorbs near-infrared light but reflects green light, so water features pr
 
 ## Step 2: Download and Extract the Sentinel-2 Image
 
-1. Navigate to the workshop's shared resources Google Drive. Under **Day 1_Session 3a: Basic raster functions**, download the ZIP file:
+1. Navigate to the workshop's shared resources Google Drive. Under [**Day 1_Session 3a: Basic raster functions**](https://drive.google.com/drive/folders/1eLEVONp7J7PeEPeFn1pC6Bm6YG9qIC-c), download the ZIP file:
    `S2A_MSIL1C_20220831T055651_N0510_R091_T42RVR_20240719T213641.SAFE.zip`
 
 2. Save the ZIP file to your **Flood_Analysis** folder and extract it:
@@ -87,7 +87,7 @@ In the **Browser Panel**, navigate to:
 
 Drag **B03**, **B04**, and **B08** into the Layers Panel.
 
-![Bands 3, 4, and 8 loaded into QGIS.](assets/04_Bands_Loaded.png "Bands Loaded")
+![Bands 3, 4, and 8 loaded into QGIS.](04_Bands_Loaded.png "Bands Loaded")
 
 ---
 
@@ -102,7 +102,7 @@ To combine three single-band rasters into one multi-band image, we use a **virtu
    - **B03** (Green — will map to the blue channel)
 3. Click **Select All**, then click the back arrow in the top-left corner of the pop-up.
 
-![The Build Virtual Raster dialog with bands arranged in NIR-Red-Green order.](assets/05_Virtual_Raster_Popup.png "Virtual Raster Setup")
+![The Build Virtual Raster dialog with bands arranged in NIR-Red-Green order.](05_Virtual_Raster_Popup.png "Virtual Raster Setup")
 
 4. Check the box **Place each input file into a separate band**.
 5. Under **Virtual**, click the three dots and select **Save to File**. Save it as `Flood_Output` in your Flood_Analysis folder.
@@ -110,7 +110,7 @@ To combine three single-band rasters into one multi-band image, we use a **virtu
 
 Once complete, uncheck B03, B04, and B08 in the Layers Panel to see the false color composite.
 
-![False color composite of the Sindh province during the 2022 floods.](assets/06_FCC.png "False Color Composite Result")
+![False color composite of the Sindh province during the 2022 floods.](06_FCC.png "False Color Composite Result")
 
 The red areas are vegetation, dark blue and black areas are water, and grey-to-white areas are bare soil and infrastructure.
 
@@ -148,7 +148,7 @@ The FCC provides a useful overview, but it has a limitation: muddy floodwater of
 ( "T42RVR_20220831T055651_B03@1" - "T42RVR_20220831T055651_B08@1" ) / ( "T42RVR_20220831T055651_B03@1" + "T42RVR_20220831T055651_B08@1" )
 ```
 
-![The Raster Calculator with the NDWI expression entered.](assets/07_NDWI_Raster_Calculator.png "NDWI Raster Calculator")
+![The Raster Calculator with the NDWI expression entered.](07_NDWI_Raster_Calculator.png "NDWI Raster Calculator")
 
 3. Click the three-dot button next to **Output layer** and save it as `NDWI_Output` in your Flood_Analysis folder.
 4. Click **OK** to run the calculation.
@@ -165,7 +165,7 @@ The FCC provides a useful overview, but it has a limitation: muddy floodwater of
 6. In the **Value** column, set the first value to `0` — this creates a clean split between water (positive values, blue) and non-water (negative values).
 7. Click **Apply**.
 
-![NDWI results with two-class blue symbology applied.](assets/08Initial_NDWI_Results.png "Initial NDWI Results")
+![NDWI results with two-class blue symbology applied.](08Initial_NDWI_Results.png "Initial NDWI Results")
 
 ---
 
@@ -178,7 +178,7 @@ To directly compare how much water the NDWI detected versus what the FCC shows, 
 3. Click **Apply**.
 4. In the Layers Panel, make sure `Flood_Output` (the FCC) is turned on and positioned **below** `NDWI_Output`.
 
-![NDWI water detection overlaid on the false color composite, showing detected flood extent in blue over the FCC.](assets/09_NDWI_Results_Opacity0.png "NDWI Over FCC")
+![NDWI water detection overlaid on the false color composite, showing detected flood extent in blue over the FCC.](09_NDWI_Results_Opacity0.png "NDWI Over FCC")
 
 The blue areas are pixels the NDWI identified as water. You can now see exactly where the NDWI detected flooding that may have been ambiguous in the FCC alone.
 
