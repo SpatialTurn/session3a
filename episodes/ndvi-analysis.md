@@ -36,9 +36,11 @@ In this exercise we will use a Sentinel-2 multispectral image to calculate NDVI 
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-### Sentinel 2 Atlas
+### ESRI Sentinel 2 Atlas
 
 Take a moment to explore Sentinel-2 Land Cover [Living Atlas](https://livingatlas.arcgis.com/landcoverexplorer/#mapCenter=-86.23422%2C39.81847%2C12.56&mode=step&timeExtent=2017%2C2025&year=2025&showImageryLayer=true&renderingRule=0&month=9). Take a note of its features!
+
+Esri’s Sentinel-2 platform in the ArcGIS Living Atlas is a free, web-based tool that provides dynamic access to global, multi-spectral satellite imagery. It features a rolling 14-month archive of the best, most cloud-free scenes, which update daily at a 10-meter spatial resolution. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -180,6 +182,7 @@ Compare your NDVI results against the satellite basemap.
 
 - NDVI uses the ratio of near-infrared and red reflectance to quantify vegetation health and density.
 - Sentinel-2 Bands 4 (Red) and 8 (NIR) are the inputs for NDVI calculation in QGIS.
+- Refer to this Multispectral Band Combinations website [here](https://gisgeography.com/sentinel-2-bands-combinations/) to learn what the function of each combination is!
 - The Raster Calculator applies the NDVI formula on a per-pixel basis across the entire image.
 - Thoughtful color symbology (red → yellow → green) makes NDVI results immediately interpretable.
 - Comparing NDVI output against a satellite basemap helps validate your interpretation of the results.
