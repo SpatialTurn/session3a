@@ -67,7 +67,7 @@ contact: 'team@carpentries.org' # FIXME
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.md
+- ndvi-analysis.md
 
 # Information for Learners
 learners: 
