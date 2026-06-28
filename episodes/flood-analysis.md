@@ -1,5 +1,5 @@
 ---
-title: "Flood Analysis with False Color Composites and NDWI"
+title: "Exercises: Flood Analysis with False Color Composites and NDWI"
 teaching: 30
 exercises: 15
 ---

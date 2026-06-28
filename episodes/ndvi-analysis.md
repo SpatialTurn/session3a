@@ -1,5 +1,5 @@
 ---
-title: "NDVI Analysis with Sentinel-2 Imagery"
+title: "Exercises: NDVI Analysis with Sentinel-2 Imagery"
 teaching: 30
 exercises: 15
 ---
